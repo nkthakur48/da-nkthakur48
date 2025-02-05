@@ -1,11 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Gen for marquee using firefall.</title>
+  <style>
+ /* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+/* Style for all input fields */
+input[type="text"], input[type="email"], input[type="number"], textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Ensure text inputs like name, email, etc., are sized correctly */
+input[type="text"], input[type="email"], input[type="number"] {
+  min-height: 40px;  /* Ensure there's enough space to view content */
+  height: auto; /* Allow height to adjust based on content */
+}
+
+/* Add styling for textareas */
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 100px; /* Set a minimum height */
+  resize: vertical; /* Allow resizing vertically */
+  overflow-y: auto; /* Make it scrollable when the content overflows */
+}
+
+/* Button Styling */
+button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Loading and result styles */
+#loading {
+  display: none;
+  font-style: italic;
+  color: grey;
+}
+
+/* Result Styling */
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Ensures padding doesn't break layout */
+  font-size: 16px;
+  line-height: 1.5;
+  max-width: 100%; /* Ensures it's responsive */
+  word-wrap: break-word; /* Ensures long words will break to the next line */
+  white-space: pre-wrap; /* Preserves whitespace formatting, including new lines */
+}
+
+.result h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.result pre {
+  background-color: #e9e9e9;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto; /* Allows horizontal scrolling if the content is wide */
+}
+
+  </style>
 </head>
 <body>
-    Hello World mmm
+  <h1>Content Gen for marquee using firefall</h1>
+  
+  <!-- Form to take three input fields -->
+  <form id="apiForm">
+    <label for="existingExamples">Existing Examples: </label><br>
+    <textarea id="existingExamples" name="existingExamples" required> 
+      1. Existing Data: (Multiple Examples of Marquee Content)
+      Example 1:
+      Marquee Content:
+      "Create at the speed of imagination. Fire up your imagination with the most powerful Photoshop yet. Remove distractions from pics in a click. Get amazing photorealistic results with Generative Fill. And add more picture to your picture with Generative Expand. Now with the latest Adobe Firefly Image Model."
+      
+      Page Theme/Category: Product, Seasonal Sale
+      
+      Audience: Creatives, photographers, deal hunters
+      
+      Tone: Exciting, Urgent, Promotional
+      
+      Example 2:
+      Marquee Content:
+      "Create at the speed of now. With powerful new features in Illustrator, you can create graphics that match your style, explore dozens of options, and finish designs faster."
+      
+      Page Theme/Category: Product, Seasonal Sale
+      
+      Audience: Creatives, designers, deal hunters
+      
+      Tone: Fresh, Trendy, Informative
+      
+      Example 3:
+      Marquee Content:
+      "Video editing that's always a cut above. Edit and trim video. Add effects. Mix audio. Animate titles. Balance color. Supercharge your workflow with AI. Tell your story with Premiere Pro."
+      
+      Page Theme/Category: Sale, Product, Video
+      
+      Audience: Deal seekers, holiday shoppers
+      
+      Tone: High-energy, Urgent, Promotional    </textarea><br><br>
+
+    <label for="instructions">Instructions: </label><br>
+    <textarea id="instructions" name="instructions" required>
+                    2. Additional Instructions:
+              Key Elements to Retain:
+              Clear Discount or Offer:
+              Always include a clear discount or offer, such as:
+
+              “Up to 50% off”
+              “Buy one, get one free”
+              Urgency:
+              Highlight that the deal is limited or time-sensitive. Examples include:
+
+              “Hurry!”
+              “Don't miss out!”
+              “Limited time offer”
+              Seasonality/Specific Themes:
+              Reference the current season, upcoming holidays, or a specific sale event. For example:
+
+              Summer
+              Black Friday
+              Winter Sale
+              Target Audience:
+              Tailor the tone and content to the specific audience being targeted. Examples include:
+
+              Deal seekers
+              Tech enthusiasts
+              Creatives
+              Tone/Style:
+              Promotional Sale:
+              The tone should be exciting and urgent to encourage immediate action.
+
+              New Arrivals or Product Showcases:
+              The tone can be more fresh or informative, highlighting the newness or uniqueness of the product.
+
+              Holiday-Specific Sales:
+              The tone should be energetic and celebratory to reflect the festive mood.
+
+              Length:
+              The content should be short, concise, and fit for a scrolling marquee. Aim for 100-150 characters to maintain readability and engagement.
+
+    </textarea><br><br>
+
+    <label for="query">Query: </label><br>
+    <textarea id="query" name="query" required>
+      can you generate for a product firefly which generates images using AI?
+      Theme: thanksgiving
+      Target Audience: Creatives
+      Tone: product showcase 
+    </textarea><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="loading">Loading...</p>
+
+  <!-- Area where the result will be shown -->
+  <div class="result" id="result"></div>
+
+  <script>
+    // Handle form submission
+    document.getElementById('apiForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the form from submitting traditionally
+
+      // Show loading message
+      document.getElementById('loading').style.display = 'block';
+      document.getElementById('result').innerHTML = '';
+
+      // Get the values from the input fields
+      const existingExamples = document.getElementById('existingExamples').value;
+      const instructions = document.getElementById('instructions').value;
+      const query = document.getElementById('query').value;
+
+      // Create the JSON body to send
+      const requestBody = {
+        existingExamples: existingExamples,
+        instructions: instructions,
+        query: query
+      };
+
+      // Dummy API URL for demonstration (replace with your actual API URL)
+      const apiUrl = 'https://14257-680chocolatetahr-stage.adobeioruntime.net/api/v1/web/cgf/gencontent';
+
+      // Make the API call
+      fetch(apiUrl, {
+        method: 'POST', // POST request
+        headers: {
+          'Content-Type': 'application/json' // Tell the server that the body is JSON
+        },
+        body: JSON.stringify(requestBody) // Convert the JavaScript object to a JSON string
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Hide loading message
+          document.getElementById('loading').style.display = 'none';
+
+          // Display the API response in the result section
+          const resultDiv = document.getElementById('result');
+          resultDiv.innerHTML = `
+            <h3>API Response:</h3>
+            <pre>${JSON.stringify(data, null, 2)}</pre>
+          `;
+        })
+        .catch(error => {
+          // Hide loading message in case of error
+          document.getElementById('loading').style.display = 'none';
+
+          // Show error message
+          document.getElementById('result').innerHTML = `
+            <h3>Error:</h3>
+            <p>Something went wrong. Please try again later.</p>
+          `;
+        });
+    });
+  </script>
 </body>
 </html>
