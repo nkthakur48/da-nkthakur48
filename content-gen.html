@@ -53,6 +53,35 @@ textarea {
   overflow-y: auto; /* Make it scrollable when the content overflows */
 }
 
+label {
+      font-size: 16px;
+      margin-bottom: 10px;
+      display: block;
+      color: #333;
+}
+
+select {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+}
+
+select:focus {
+      outline: none;
+      border-color: #6c63ff;
+      background-color: #f1f1f1;
+}
+
+select option:checked {
+      background-color: #b3d9ff; /* Light blue background */
+    }
+
 /* Button Styling */
 button {
   padding: 10px 20px;
@@ -110,7 +139,15 @@ button:hover {
   
   <!-- Form to take three input fields -->
   <form id="apiForm">
-    <label for="existingExamples">Existing Examples: </label><br>
+    <label for="query" style="font-weight:bold">Query: </label>
+    <textarea id="query" name="query" required>
+can you generate for a product firefly which generates images using AI? this will make user's life much easier and boost their productivity. we also offer free credits.
+      Theme: thanksgiving
+      Target Audience: Creatives
+      Tone: product showcase 
+
+    </textarea><br><br>
+  <!--  <label for="existingExamples">Existing Examples: </label><br>
     <textarea id="existingExamples" name="existingExamples" required> 
       1. Existing Data: (Multiple Examples of Marquee Content)
       Example 1:
@@ -141,58 +178,48 @@ button:hover {
       
       Audience: Deal seekers, holiday shoppers
       
-      Tone: High-energy, Urgent, Promotional    </textarea><br><br>
+      Tone: High-energy, Urgent, Promotional    </textarea><br><br> -->
 
-    <label for="instructions">Instructions: </label><br>
+
+    <label for="instructions" style="font-weight:bold">Instructions: </label><br>
+        Select the Target Audience
+        <select id="audience" name="options[]" multiple size="4">
+          <option value="creatives" selected>Creatives</option>
+          <option value="videoEditors">Video Editing</option>
+          <option value="documentEditors">document editors</option>
+          <option value="genAI">Gen AI enthusiasts</option>
+        </select>
+
+        Select Tone
+        <select id="tone" name="options[]" multiple size="3">
+          <option value="promotional" selected> Promotional Sale</option>
+          <option value="product">Product Showcases</option>
+          <option value="seasonal">Holiday-Specific Sales</option>
+        </select>
+        Additional Instructions: 
     <textarea id="instructions" name="instructions" required>
-                    2. Additional Instructions:
-              Key Elements to Retain:
-              Clear Discount or Offer:
+      Additionally :
+        Key Elements to Retain:
+          Clear Discount or Offer:
               Always include a clear discount or offer, such as:
-
               “Up to 50% off”
               “Buy one, get one free”
-              Urgency:
+          Urgency:
               Highlight that the deal is limited or time-sensitive. Examples include:
-
               “Hurry!”
               “Don't miss out!”
               “Limited time offer”
-              Seasonality/Specific Themes:
-              Reference the current season, upcoming holidays, or a specific sale event. For example:
-
-              Summer
-              Black Friday
-              Winter Sale
-              Target Audience:
-              Tailor the tone and content to the specific audience being targeted. Examples include:
-
-              Deal seekers
-              Tech enthusiasts
-              Creatives
-              Tone/Style:
-              Promotional Sale:
-              The tone should be exciting and urgent to encourage immediate action.
-
-              New Arrivals or Product Showcases:
-              The tone can be more fresh or informative, highlighting the newness or uniqueness of the product.
-
-              Holiday-Specific Sales:
-              The tone should be energetic and celebratory to reflect the festive mood.
-
-              Length:
+          Length:
               The content should be short, concise, and fit for a scrolling marquee. Aim for 100-150 characters to maintain readability and engagement.
-
     </textarea><br><br>
 
-    <label for="query">Query: </label><br>
-    <textarea id="query" name="query" required>
-      can you generate for a product firefly which generates images using AI? this will make user's life much easier and boost their productivity. we also offer free credits.
-      Theme: thanksgiving
-      Target Audience: Creatives
-      Tone: product showcase 
 
-    </textarea><br><br>
+    <label for="options"  style="font-weight:bold">Choose examples to add as context given to model:</label>
+    <select id="examples" name="options[]" multiple size="3">
+      <option value="photoshopExample" selected>Photoshop</option>
+      <option value="illustratorExample">Illustrator</option>
+      <option value="premiereExample">Premiere Pro</option>
+    </select>
 
     <button type="submit">Submit</button>
   </form>
@@ -212,15 +239,21 @@ button:hover {
       document.getElementById('result').innerHTML = '';
 
       // Get the values from the input fields
-      const existingExamples = document.getElementById('existingExamples').value;
+     // const existingExamples = document.getElementById('existingExamples').value;
       const instructions = document.getElementById('instructions').value;
       const query = document.getElementById('query').value;
+      const examples = Array.from(document.getElementById("examples").selectedOptions).map(option => option.value);
+      const tone = Array.from(document.getElementById("tone").selectedOptions).map(option => option.value);
+      const audience = Array.from(document.getElementById("audience").selectedOptions).map(option => option.value);
 
       // Create the JSON body to send
       const requestBody = {
-        existingExamples: existingExamples,
+        examples: examples,
         instructions: instructions,
-        query: query
+        query: query,
+        audience: audience,
+        tone: tone,
+        existingExamples: " \r\n      1. Existing Data: (Multiple Examples of Marquee Content)\r\n      Example 1:\r\n      Marquee Content:\r\n      \"Create at the speed of imagination. Fire up your imagination with the most powerful Photoshop yet. Remove distractions from pics in a click. Get amazing photorealistic results with Generative Fill. And add more picture to your picture with Generative Expand. Now with the latest Adobe Firefly Image Model.\"\r\n      \r\n      Page Theme\/Category: Product, Seasonal Sale\r\n      \r\n      Audience: Creatives, photographers\r\n      \r\n      Tone: Exciting, Urgent, Promotional\r\n      \r\n      Example 2:\r\n      Marquee Content:\r\n      \"Create at the speed of now. With powerful new features in Illustrator, you can create graphics that match your style, explore dozens of options, and finish designs faster.\"\r\n      \r\n      Page Theme\/Category: Product, Seasonal Sale\r\n      \r\n      Audience: Creatives, designers\r\n      \r\n      Tone: Fresh, Trendy, Informative\r\n      \r\n      Example 3:\r\n      Marquee Content:\r\n      \"Video editing that's always a cut above. Edit and trim video. Add effects. Mix audio. Animate titles. Balance color. Supercharge your workflow with AI. Tell your story with Premiere Pro.\"\r\n      \r\n      Page Theme\/Category: Sale, Product, Video\r\n      \r\n      Audience: Deal seekers, videographers\r\n      \r\n      Tone: High-energy, Urgent, Promotional    "
       };
 
       // Dummy API URL for demonstration (replace with your actual API URL)
